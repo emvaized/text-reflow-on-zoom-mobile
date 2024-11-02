@@ -1,11 +1,11 @@
-# <sub><img src="./src/icon.png" height="48" width="48"></sub> Text reflow on zoom by pinch gesture (mobile)
+# <sub><img src="./src/icon.png" height="48" width="48"></sub> Text reflow on zoom (mobile)
 
 ![Greasy Fork Downloads](https://img.shields.io/greasyfork/dt/514789?label=downloads&logo=greasyfork)
 
-This script is created for mobile browsers, and tries to fit all text on page to the screen width after pinch gesture. 
+This script tries to fit all text on page to the screen width after pinch gesture on phone. 
 It tries to replicate text reflow feature from Opera Mobile, but in any browser. 
 
-Text reflow on zoom is available to use as a [Userscript](./src/text_reflow_on_zoom.js), or as a browser extension.
+It is available to use as a [Userscript](./src/text_reflow_on_zoom.js), or as a browser extension.
 
 #### Demo
 
