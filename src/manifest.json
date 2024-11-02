@@ -1,11 +1,14 @@
 {
     "manifest_version": 3,
     "name": "Text reflow on zoom (mobile)",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "This extension tries to fit text to screen width after pinch gesture. It tries to replicate text reflow feature from Opera Mobile.",
     "author": "emvaized",
     "browser_specific_settings": {
       "gecko": {
+        "id": "text_reflow_on_zoom@emvaized.dev"
+      },
+      "gecko_android": {
         "id": "text_reflow_on_zoom@emvaized.dev"
       }
     },
