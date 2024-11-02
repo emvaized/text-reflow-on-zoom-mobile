@@ -9,7 +9,7 @@ Text reflow on zoom is available to use as a [Userscript](./src/text_reflow_on_z
 
 #### Demo
 
-<img src="illustration.gif" >
+<img src="assets/illustration.gif" >
 
 ## Current problems
 
