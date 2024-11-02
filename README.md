@@ -6,7 +6,7 @@
 This script tries to fit all text on page to the screen width after pinch gesture on phone. 
 It tries to replicate text reflow feature from Opera Mobile, but in any browser. 
 
-It is available to use as a [Userscript](./src/text_reflow_on_zoom.js), or as a browser extension (currently available only as [Firefox Addon](https://addons.mozilla.org/firefox/addon/text-reflow-on-zoom-mobile/)).
+It is available to use as a [userscript](./src/text_reflow_on_zoom.js), or as a browser extension (currently available only as [Firefox Addon](https://addons.mozilla.org/firefox/addon/text-reflow-on-zoom-mobile/), but you can install it manually in any browser by downloading the latest [release](https://github.com/emvaized/text-reflow-on-zoom-mobile/releases)).
 
 #### Demo
 
