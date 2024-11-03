@@ -1,18 +1,18 @@
-# <sub><img src="./src/icon.png" height="48" width="48"></sub> Text reflow on zoom (mobile)
+# <sub><img src="./src/icon.png" height="45" width="45"></sub> Text reflow on zoom (mobile)
 
 ![Greasy Fork Downloads](https://img.shields.io/greasyfork/dt/514789?label=downloads&logo=greasyfork)
 [![Mozilla Add-on](https://img.shields.io/amo/users/text-reflow-on-zoom-mobile?color=%23FF6611&label=users&logo=Firefox)](https://addons.mozilla.org/firefox/addon/text-reflow-on-zoom-mobile/)
 
-This script tries to fit all text on page to the screen width after pinch gesture on phone. 
-It tries to replicate text reflow feature from Opera Mobile, but in any browser. 
+This tool tries to fit all text on page to the screen width after pinch gesture on phone. 
+It was created to replicate text reflow feature from Opera Mobile, but in any browser. 
 
-It is available to use as a [userscript](./src/text_reflow_on_zoom.js), or as a browser extension (currently available only as [Firefox Addon](https://addons.mozilla.org/firefox/addon/text-reflow-on-zoom-mobile/), but you can install it manually in any browser by downloading the latest [release](https://github.com/emvaized/text-reflow-on-zoom-mobile/releases)).
+It is available as a [userscript](./src/text_reflow_on_zoom.js) and as a browser extension (available as Firefox Android [addon](https://addons.mozilla.org/firefox/addon/text-reflow-on-zoom-mobile/), but you can install it manually in any browser by downloading the latest [release](https://github.com/emvaized/text-reflow-on-zoom-mobile/releases)).
 
-#### Demo
+#### Short demo
 
 <img src="assets/illustration.gif" >
 
-## Current problems
+## Known issues
 
 Since it is a first attempt of implementing this feature, there are currently a few problems: 
 
@@ -22,8 +22,8 @@ Since it is a first attempt of implementing this feature, there are currently a 
 
 - Some elements with text are not reflowed by the script, for example `div` elements, or `span` elements with `display:inline` set. I am yet to figure out how to target these elements without too much performance overhead and unwanted reflows
 
-## Donate
-If you really enjoy this project, please consider supporting its further development by making a small donation using one of the services below 🙏 
+## Support
+If you enjoy this project, please consider supporting further development by making a small donation using one of the services below 🙏 
 
 <a href="https://ko-fi.com/emvaized"><img src="https://cdn.prod.website-files.com/5c14e387dab576fe667689cf/64f1a9ddd0246590df69ea0b_kofi_long_button_red%25402x-p-800.png" alt="Support on Ko-fi" height="40"></a> &nbsp; <a href="https://liberapay.com/emvaized/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg" height="40"></a> &nbsp; <a href="https://emvaized.github.io/donate/bitcoin/"><img src="https://github.com/emvaized/emvaized.github.io/blob/main/donate/bitcoin/assets/bitcoin-donate-button.png?raw=true" alt="Donate Bitcoin" height="40" /></a>
 
