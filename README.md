@@ -32,4 +32,4 @@ This tool doesn't collect any private data. It is fully open source, and you can
 
 ## Contributing
 
-If you have any ideas on how it can be improved, please let me know using a [Feedback](https://greasyfork.org/en/scripts/514789-text-reflow-on-zoom-by-pinch-gesture-mobile/feedback) form on Greasyfork, or by opening an issue ticket or pull request here on Github.
+If you have any ideas on how it can be improved, please let me know using a [feedback](https://greasyfork.org/en/scripts/514789-text-reflow-on-zoom-by-pinch-gesture-mobile/feedback) form on Greasyfork, or by opening a [new issue ticket](https://github.com/emvaized/text-reflow-on-zoom-mobile/issues/new) or pull request here on Github.
