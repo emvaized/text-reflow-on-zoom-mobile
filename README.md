@@ -20,13 +20,16 @@ Since it is a first attempt of implementing this feature, there are currently a 
 
 - The script attempts to guess text element which you were zooming into, and scrolls it into view after reflow. But this feature is buggy and doesn't work reliably all the time
 
-- Some elements with text are not reflowed by the script, for example `div` elements, or `span` elements with `display:inline` set. I am yet to figure out how to target these elements without too much performance overhead and unwanted reflows
+- Some text elements are not proccessed by the script, for example `div` elements, or `span` elements with `display:inline` set. We are yet to figure out how to target these elements without too much performance overhead and unwanted reflows
 
 ## Support
 If you enjoy this project, please consider supporting further development by making a small donation using one of the services below 🙏 
 
 <a href="https://ko-fi.com/emvaized"><img src="https://cdn.prod.website-files.com/5c14e387dab576fe667689cf/64f1a9ddd0246590df69ea0b_kofi_long_button_red%25402x-p-800.png" alt="Support on Ko-fi" height="40"></a> &nbsp; <a href="https://liberapay.com/emvaized/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg" height="40"></a> &nbsp; <a href="https://emvaized.github.io/donate/bitcoin/"><img src="https://github.com/emvaized/emvaized.github.io/blob/main/donate/bitcoin/assets/bitcoin-donate-button.png?raw=true" alt="Donate Bitcoin" height="40" /></a>
 
-### Contributing
+## Privacy
+This tool doesn't collect any private data. It is fully open source, and you can see the code on Github. It requires access to all urls in order to function properly.
+
+## Contributing
 
 If you have any ideas on how it can be improved, please let me know using a [Feedback](https://greasyfork.org/en/scripts/514789-text-reflow-on-zoom-by-pinch-gesture-mobile/feedback) form on Greasyfork, or by opening an issue ticket or pull request here on Github.
