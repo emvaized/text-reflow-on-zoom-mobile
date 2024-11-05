@@ -6,7 +6,7 @@
 This tool tries to fit all text on page to the screen width after pinch gesture on phone. 
 It was created to replicate text reflow feature from Opera Mobile, but in any browser. 
 
-It is available as a [userscript](https://raw.githubusercontent.com/emvaized/text-reflow-on-zoom-mobile/refs/heads/main/src/text_reflow_on_zoom.js) and as a browser extension (available as Firefox Android [addon](https://addons.mozilla.org/firefox/addon/text-reflow-on-zoom-mobile/), but you can install it manually in any browser after downloading the latest [release](https://github.com/emvaized/text-reflow-on-zoom-mobile/releases)).
+It is available as [Userscript](https://raw.githubusercontent.com/emvaized/text-reflow-on-zoom-mobile/refs/heads/main/src/text_reflow_on_zoom.js), and as a browser extension ([Firefox addon](https://addons.mozilla.org/firefox/addon/text-reflow-on-zoom-mobile/), but you can install it manually in any browser after downloading the latest [release](https://github.com/emvaized/text-reflow-on-zoom-mobile/releases)).
 
 #### Short demo
 
@@ -20,7 +20,7 @@ Since it is a first attempt of implementing this feature, there are currently a 
 
 - The script attempts to guess text element which you were zooming into, and scrolls it into view after reflow. But this feature is buggy and doesn't work reliably all the time
 
-- Some text elements are not proccessed by the script, for example `div` elements, or `span` elements with `display:inline` set. We are yet to figure out how to target these elements without too much performance overhead and unwanted reflows
+- Some text elements are not proccessed by the script, for example `div` elements, or `span` elements with `display:inline` rule set. I am yet to figure out how to target these elements without too much performance overhead and unwanted reflows
 
 ## Support
 If you enjoy this project, please consider supporting further development by making a small donation using one of the services below 🙏 
