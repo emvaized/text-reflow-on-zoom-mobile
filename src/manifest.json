@@ -21,7 +21,7 @@
           "<all_urls>"
         ],
         "js": [
-          "text_reflow_on_zoom.js"
+          "text_reflow_on_pinch_zoom.js"
         ],
         "run_at": "document_start"
       }
