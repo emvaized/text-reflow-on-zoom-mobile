@@ -20,7 +20,8 @@
 
     function reflowText() {
         if (!isCssInjected) {
-            const styleContent = `.text-reflowed-userscript { word-wrap: break-word !important; overflow-wrap:break-word !important; max-width:var(--reflow-max-width) !important; }`;
+            const styleContent = `.text-reflow-userscript { word-wrap: break-word !important; overflow-wrap:break-word !important; max-width:var(--reflow-max-width) !important; }
+            .text-reflow-scroll-padding {scroll-margin-left: 1vw !important;}`;
             const styleElement = document.createElement('style');
             styleElement.textContent = styleContent;
             document.head.appendChild(styleElement);
@@ -53,9 +54,6 @@
         /// Scroll initial target element into view
         if (zoomTarget && targetDyOffsetRatio) {
             setTimeout(t => {
-                // Scroll element into view horizontally
-                zoomTarget.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'center' });
-
                 // Scroll to element vertically, according to new page layout
                 const targetOffset = targetDyOffsetRatio * window.innerHeight;
                 const rect = zoomTarget.getBoundingClientRect();
@@ -67,15 +65,20 @@
                     behavior: 'instant'
                 });
 
+                // Scroll element into view horizontally
+                zoomTarget.classList.add('text-reflow-scroll-padding')
+                zoomTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                zoomTarget.classList.remove('text-reflow-scroll-padding')
+
                 // Reset the target and offset after scrolling
                 zoomTarget = null;
                 targetDyOffsetRatio = null;
-            }, 5);
+            }, 1);
         }
     }
 
     function processElement(element){
-        element.classList.add('text-reflowed-userscript')
+        element.classList.add('text-reflow-userscript')
     }
 
     // Detect start of multi-touch (pinch) gesture
