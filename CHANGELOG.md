@@ -1,3 +1,8 @@
+### 1.0.4
+- Improved scrolling reflowed element into view + added animated transition
+- Improved text elements selector on page
+- Updated addon icon on Firefox
+
 ### 1.0.3
 - Updated project structure
 - Added ability to function as extension
