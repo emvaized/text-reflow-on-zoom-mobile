@@ -16,7 +16,7 @@
 
     let isCssInjected = false, isPinching = false;
     let zoomTarget, targetDyOffsetRatio;
-    const textElementsSelector = 'p, a, h1, h2, h3, h4, h5, h6, li, span, div:has(> br)';
+    const textElementsSelector = 'p, a, h1, h2, h3, h4, h5, h6, li, div:has(> br), div:has(> span:not(:empty)), div:has(> em)';
 
     function reflowText() {
         if (!isCssInjected) {
@@ -33,10 +33,13 @@
         const textElements = document.querySelectorAll(textElementsSelector);
 
         // Check if an element is nested inside another matching element
-        const isTopLevel = (el) => {
+        const filterElements = (el) => {
+            // Filter out elements with no text
+            if (!el.textContent) return false;
+            
             let parent = el.parentElement;
             while (parent) {
-                // If a parent is also a text element, proccess only parent instead
+                // If a parent is also a text element, proccess it instead
                 if (parent.matches(textElementsSelector)) return false;
                 parent = parent.parentElement;
             }
@@ -44,7 +47,7 @@
         };
   
         // Filter elements to get only top-level ones
-        const topLevelTextElements = Array.from(textElements).filter(isTopLevel);
+        const topLevelTextElements = Array.from(textElements).filter(filterElements);
         topLevelTextElements.forEach(element => processElement(element));
 
         /// Scroll initial target element into view
