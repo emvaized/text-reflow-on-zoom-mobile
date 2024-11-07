@@ -14,9 +14,9 @@
 (function() {
     'use strict';
 
+    const textElementsSelector = 'p, a, h1, h2, h3, h4, h5, h6, li, div:has(> br), div:has(> span:not(:empty)), div:has(> em)';
     let isCssInjected = false, isPinching = false;
     let zoomTarget, targetDyOffsetRatio;
-    const textElementsSelector = 'p, a, h1, h2, h3, h4, h5, h6, li, div:has(> br), div:has(> span:not(:empty)), div:has(> em)';
 
     function reflowText() {
         if (!isCssInjected) {
