@@ -12,15 +12,15 @@ It is available as [Userscript](https://raw.githubusercontent.com/emvaized/text-
 
 <img src="assets/illustration.gif" >
 
-## Known issues
+## Possible issues
 
-Since it is a first attempt of implementing this feature, there are currently a few problems: 
+Since it is my first attempt of implementing this feature, there might be some problems: 
 
 - Some reflowed text elements might be misaligned, if they are positioned inside an element with `align-items:center`
 
 - The script attempts to guess text element which you were zooming into, and scrolls it into view after reflow. But this feature is buggy and doesn't work reliably all the time
 
-- Some text elements are not proccessed by the script, for example `div` elements, or `span` elements with `display:inline` rule set. I am yet to figure out how to target these elements without too much performance overhead and unwanted reflows
+- Some text elements might be ignored by the script, for example `div` elements, or `span` elements with `display:inline` rule set. I am yet to figure out how to target these elements without too much performance overhead and unwanted reflows
 
 ## Support
 If you enjoy this project, please consider supporting further development by making a small donation using one of the services below 🙏 
