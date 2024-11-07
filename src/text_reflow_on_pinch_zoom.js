@@ -1,7 +1,8 @@
 // ==UserScript==
-// @name         Text reflow on zoom by pinch gesture (mobile)
-// @description  This userscript tries to fit text to screen width after pinch gesture. It tries to replicate text reflow feature from Opera Mobile.
-// @description:ru Этот скрипт пытается подогнать текст под ширину экрана после жеста увеличения на телефоне. Он воспроизводит функцию переноса текста из Opera Mobile.
+// @name         Text reflow on pinch zoom (mobile)
+// @name:ru      Text reflow on pinch zoom (mobile)
+// @description  Fits all text to the screen width after a pinch gesture on phone 
+// @description:ru  Подгонка текста под ширину экрана после жеста увеличения на телефоне
 // @version      1.0.4
 // @author       emvaized
 // @license      MIT
