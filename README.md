@@ -1,14 +1,14 @@
 # <sub><img src="./src/icon.png" height="45" width="45"></sub> Text reflow on zoom (mobile)
 
-![Greasy Fork Downloads](https://img.shields.io/greasyfork/dt/514789?label=downloads&logo=greasyfork)
-[![Mozilla Add-on](https://img.shields.io/amo/users/text-reflow-on-zoom-mobile?color=%23FF6611&label=users&logo=Firefox)](https://addons.mozilla.org/firefox/addon/text-reflow-on-zoom-mobile/)
+[![Greasy Fork Downloads](https://img.shields.io/greasyfork/dt/514789?label=Greasyfork+installs&logo=greasyfork)](https://greasyfork.org/scripts/514789-text-reflow-on-zoom-by-pinch-gesture-mobile)
+[![Mozilla Add-on](https://img.shields.io/amo/users/text-reflow-on-zoom-mobile?color=%23FF6611&label=Firefox+users&logo=Firefox)](https://addons.mozilla.org/firefox/addon/text-reflow-on-zoom-mobile/)
 
 This tool tries to fit all text on page to the screen width after pinch gesture on phone. 
 It was created to replicate text reflow feature from Opera Mobile, but in any browser. 
 
 It is available as [Userscript](https://raw.githubusercontent.com/emvaized/text-reflow-on-zoom-mobile/refs/heads/main/src/text_reflow_on_zoom.js), and as a browser extension ([Firefox addon](https://addons.mozilla.org/firefox/addon/text-reflow-on-zoom-mobile/), but you can install it manually in any browser after downloading the latest [release](https://github.com/emvaized/text-reflow-on-zoom-mobile/releases)).
 
-#### Short demo
+#### Demo
 
 <img src="assets/illustration.gif" >
 
