@@ -15,7 +15,7 @@
 (function() {
     'use strict';
 
-    const textElementsSelector = 'p, a, h1, h2, h3, h4, h5, h6, li, div:has(> br), div:has(> span:not(:empty)), div:has(> em)';
+    const textElementsSelector = 'p, h1, h2, h3, h4, h5, h6, li, div:has(> br), div:has(> span:not(:empty)), div:has(> em)';
     let isCssInjected = false, isPinching = false;
     let zoomTarget, targetDyOffsetRatio;
 
@@ -34,27 +34,35 @@
         // Select elements likely to contain text
         const textElements = document.querySelectorAll(textElementsSelector);
 
-        // Check if an element is nested inside another matching element
-        const filterElements = (el) => {
-            // Filter out elements with no text
-            if (!el.textContent) return false;
+        // Keep track of elements that should be excluded because they are nested
+        const excludedElements = new Set();
+
+        for (let i = 0, n = textElements.length, el; i < n; i++) {
+            el = textElements[i];
             
+            // Skip if the element has already been marked as nested
+            if (excludedElements.has(el)) continue;
+
+            // Filter out elements with no text content
+            if (!el.textContent.trim()) continue;
+
+            // Proccess only top-level text elements
+            let isTopLevel = true;
             let parent = el.parentElement;
+
             while (parent) {
-                // If a parent is also a text element, proccess it instead
-                if (parent.matches(textElementsSelector)) return false;
+                if (parent.matches(textElementsSelector)) {
+                    isTopLevel = false;
+                    excludedElements.add(el);
+                    break;
+                }
                 parent = parent.parentElement;
             }
-            return true;
-        };
-  
-        // Filter elements to get only top-level ones
-        const topLevelTextElements = Array.from(textElements).filter(filterElements);
-        topLevelTextElements.forEach(element => processElement(element));
+            if (isTopLevel) processElement(el);
+        }
 
         /// Scroll initial target element into view
         if (zoomTarget && targetDyOffsetRatio) {
-            setTimeout(t => {
                 // Scroll to element vertically, according to new page layout
                 const targetOffset = targetDyOffsetRatio * window.innerHeight;
                 const rect = zoomTarget.getBoundingClientRect();
@@ -74,7 +82,6 @@
                 // Reset the target and offset after scrolling
                 zoomTarget = null;
                 targetDyOffsetRatio = null;
-            }, 1);
         }
     }
 
