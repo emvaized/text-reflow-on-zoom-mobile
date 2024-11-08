@@ -39,11 +39,8 @@
 
         for (let i = 0, n = textElements.length, el; i < n; i++) {
             el = textElements[i];
-            
-            // Skip if the element has already been marked as nested
-            if (excludedElements.has(el)) continue;
 
-            // Filter out elements with no text content
+            if (excludedElements.has(el)) continue;
             if (!el.textContent.trim()) continue;
 
             // Proccess only top-level text elements
@@ -58,7 +55,11 @@
                 }
                 parent = parent.parentElement;
             }
-            if (isTopLevel) processElement(el);
+            if (isTopLevel) {
+                // Apply CSS styles to element and skip it next time
+                excludedElements.add(el);
+                element.classList.add('text-reflow-userscript');
+            } 
         }
 
         /// Scroll initial target element into view
@@ -83,10 +84,6 @@
                 zoomTarget = null;
                 targetDyOffsetRatio = null;
         }
-    }
-
-    function processElement(element){
-        element.classList.add('text-reflow-userscript')
     }
 
     // Detect start of multi-touch (pinch) gesture
