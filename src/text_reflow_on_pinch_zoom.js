@@ -15,7 +15,7 @@
 (function() {
     'use strict';
 
-    const textElementsSelector = 'p, h1, h2, h3, h4, h5, h6, li, div:has(> br), div:has(> span:not(:empty)), div:has(> em)';
+    const textElementsSelector = 'p,a,h1,h2,h3,h4,h5,h6,li,div:has(> br),div:has(> span:not(:empty)),div:has(> em)';
     let isCssInjected = false, isPinching = false;
     let zoomTarget, targetDyOffsetRatio;
 
@@ -28,7 +28,7 @@
             document.head.appendChild(styleElement);
         }
 
-        const maxAllowedWidth = window.visualViewport.width * 0.96;
+        const maxAllowedWidth = Math.round(window.visualViewport.width * 0.96);
         document.documentElement.style.setProperty('--reflow-max-width', `${maxAllowedWidth}px`);
 
         // Select elements likely to contain text
