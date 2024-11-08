@@ -57,8 +57,8 @@
             }
             if (isTopLevel) {
                 // Apply CSS styles to element and skip it next time
-                excludedElements.add(el);
                 el.classList.add('text-reflow-userscript');
+                excludedElements.add(el);
             } 
         }
 
