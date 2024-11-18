@@ -1,3 +1,6 @@
+### 1.0.5
+- Scroll element into view horizontally only if it matches as a text element, to zoom images more comfortably
+
 ### 1.0.4
 - Improved scrolling reflowed element into view + added animated transition
 - Improved text elements selector on page

@@ -3,9 +3,11 @@
 // @name:ru      Text reflow on pinch zoom (mobile)
 // @description  Fits all text to the screen width after a pinch gesture on phone 
 // @description:ru  Подгонка текста под ширину экрана после жеста увеличения на телефоне
-// @version      1.0.4
+// @version      1.0.5
 // @author       emvaized
 // @license      MIT
+// @homepageURL  https://github.com/emvaized/text-reflow-on-zoom-mobile
+// @downloadURL  https://github.com/emvaized/text-reflow-on-zoom-mobile/raw/refs/heads/main/src/text_reflow_on_pinch_zoom.js
 // @namespace    text_reflow_on_pinch_zoom
 // @match        *://*/*
 // @grant        none
@@ -76,9 +78,11 @@
                 });
 
                 // Scroll element into view horizontally
-                zoomTarget.classList.add('text-reflow-scroll-padding')
-                zoomTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-                zoomTarget.classList.remove('text-reflow-scroll-padding')
+                if (zoomTarget.matches(textElementsSelector)) {
+                    zoomTarget.classList.add('text-reflow-scroll-padding')
+                    zoomTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                    zoomTarget.classList.remove('text-reflow-scroll-padding')
+                }
 
                 // Reset the target and offset after scrolling
                 zoomTarget = null;
