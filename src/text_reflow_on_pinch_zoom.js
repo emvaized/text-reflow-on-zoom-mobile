@@ -3,9 +3,11 @@
 // @name:ru      Text reflow on pinch zoom (mobile)
 // @description  Fits all text to the screen width after a pinch gesture on phone 
 // @description:ru  Подгонка текста под ширину экрана после жеста увеличения на телефоне
-// @version      1.0.4
+// @version      1.0.5
 // @author       emvaized
 // @license      MIT
+// @homepageURL  https://github.com/emvaized/text-reflow-on-zoom-mobile
+// @downloadURL  https://github.com/emvaized/text-reflow-on-zoom-mobile/raw/refs/heads/main/src/text_reflow_on_pinch_zoom.js
 // @namespace    text_reflow_on_pinch_zoom
 // @match        *://*/*
 // @grant        none
@@ -15,7 +17,7 @@
 (function() {
     'use strict';
 
-    const textElementsSelector = 'p, a, h1, h2, h3, h4, h5, h6, li, div:has(> br), div:has(> span:not(:empty)), div:has(> em)';
+    const textElementsSelector = 'p,a,h1,h2,h3,h4,h5,h6,li,div:has(> br),div:has(> span:not(:empty)),div:has(> em)';
     let isCssInjected = false, isPinching = false;
     let zoomTarget, targetDyOffsetRatio;
 
@@ -28,33 +30,42 @@
             document.head.appendChild(styleElement);
         }
 
-        const maxAllowedWidth = window.visualViewport.width * 0.96;
+        const maxAllowedWidth = Math.round(window.visualViewport.width * 0.96);
         document.documentElement.style.setProperty('--reflow-max-width', `${maxAllowedWidth}px`);
 
         // Select elements likely to contain text
         const textElements = document.querySelectorAll(textElementsSelector);
 
-        // Check if an element is nested inside another matching element
-        const filterElements = (el) => {
-            // Filter out elements with no text
-            if (!el.textContent) return false;
-            
+        // Keep track of elements that should be excluded because they are nested
+        const excludedElements = new Set();
+
+        for (let i = 0, n = textElements.length, el; i < n; i++) {
+            el = textElements[i];
+
+            if (excludedElements.has(el)) continue;
+            if (!el.textContent.trim()) continue;
+
+            // Proccess only top-level text elements
+            let isTopLevel = true;
             let parent = el.parentElement;
+
             while (parent) {
-                // If a parent is also a text element, proccess it instead
-                if (parent.matches(textElementsSelector)) return false;
+                if (parent.matches(textElementsSelector)) {
+                    isTopLevel = false;
+                    excludedElements.add(el);
+                    break;
+                }
                 parent = parent.parentElement;
             }
-            return true;
-        };
-  
-        // Filter elements to get only top-level ones
-        const topLevelTextElements = Array.from(textElements).filter(filterElements);
-        topLevelTextElements.forEach(element => processElement(element));
+            if (isTopLevel) {
+                // Apply CSS styles to element and skip it next time
+                el.classList.add('text-reflow-userscript');
+                excludedElements.add(el);
+            } 
+        }
 
         /// Scroll initial target element into view
         if (zoomTarget && targetDyOffsetRatio) {
-            setTimeout(t => {
                 // Scroll to element vertically, according to new page layout
                 const targetOffset = targetDyOffsetRatio * window.innerHeight;
                 const rect = zoomTarget.getBoundingClientRect();
@@ -67,19 +78,16 @@
                 });
 
                 // Scroll element into view horizontally
-                zoomTarget.classList.add('text-reflow-scroll-padding')
-                zoomTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-                zoomTarget.classList.remove('text-reflow-scroll-padding')
+                if (zoomTarget.matches(textElementsSelector)) {
+                    zoomTarget.classList.add('text-reflow-scroll-padding')
+                    zoomTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                    zoomTarget.classList.remove('text-reflow-scroll-padding')
+                }
 
                 // Reset the target and offset after scrolling
                 zoomTarget = null;
                 targetDyOffsetRatio = null;
-            }, 1);
         }
-    }
-
-    function processElement(element){
-        element.classList.add('text-reflow-userscript')
     }
 
     // Detect start of multi-touch (pinch) gesture

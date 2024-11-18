@@ -1,3 +1,8 @@
+### 1.0.5
+- Scroll element into view horizontally only if it matches as a text element, to zoom images more comfortably
+- Various performance and code improvements
+- Added Github urls in Userscript meta tags 
+
 ### 1.0.4
 - Improved scrolling reflowed element into view + added animated transition
 - Improved text elements selector on page
