@@ -93,7 +93,8 @@
                 });
 
                 // Scroll element into view horizontally
-                if (elementIsTextElement(zoomTarget)) {
+                // if (elementIsTextElement(zoomTarget)) {
+                if (zoomTarget.nodeName !== 'IMG'){
                     zoomTarget.classList.add('text-reflow-scroll-padding')
                     zoomTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
                     zoomTarget.classList.remove('text-reflow-scroll-padding')
