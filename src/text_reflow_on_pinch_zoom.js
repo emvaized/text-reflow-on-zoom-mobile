@@ -43,8 +43,9 @@
         for (let i = 0, n = textElements.length, el; i < n; i++) {
             el = textElements[i];
 
-            if (excludedElements.has(el)) continue;
+            if (!el.offsetParent) continue;
             if (!el.textContent.trim()) continue;
+            if (excludedElements.has(el)) continue;
 
             // Proccess only top-level text elements
             let isTopLevel = true;
