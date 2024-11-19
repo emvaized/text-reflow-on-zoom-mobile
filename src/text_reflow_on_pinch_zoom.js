@@ -28,6 +28,7 @@
             const styleElement = document.createElement('style');
             styleElement.textContent = styleContent;
             document.head.appendChild(styleElement);
+            isCssInjected = true;
         }
 
         const maxAllowedWidth = Math.round(window.visualViewport.width * 0.96);
