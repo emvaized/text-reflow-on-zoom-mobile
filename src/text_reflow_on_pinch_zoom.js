@@ -27,8 +27,7 @@
     //h5 | 
     //h6 | 
     //li | 
-    //div[em] | 
-    //div[b] | 
+    //div[b or em or i] | 
     //div[normalize-space(text())] | 
     //div[span[normalize-space(text())]]
 `;
