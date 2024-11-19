@@ -23,7 +23,7 @@
 
     function reflowText() {
         if (!isCssInjected) {
-            const styleContent = `.text-reflow-userscript { word-wrap: break-word !important; overflow-wrap:break-word !important; max-width:var(--reflow-max-width) !important; }
+            const styleContent = `.text-reflow-userscript { word-wrap: break-word !important; overflow-wrap:break-word !important; max-width:var(--text-reflow-max-width) !important; }
             .text-reflow-scroll-padding {scroll-margin-left: 1vw !important;}`;
             const styleElement = document.createElement('style');
             styleElement.textContent = styleContent;
@@ -32,7 +32,7 @@
         }
 
         const maxAllowedWidth = Math.round(window.visualViewport.width * 0.96);
-        document.documentElement.style.setProperty('--reflow-max-width', `${maxAllowedWidth}px`);
+        document.documentElement.style.setProperty('--text-reflow-max-width', `${maxAllowedWidth}px`);
 
         // Select elements likely to contain text
         const textElements = document.querySelectorAll(textElementsSelector);
