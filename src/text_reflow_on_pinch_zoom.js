@@ -27,8 +27,6 @@
     //h5 | 
     //h6 | 
     //li | 
-    //div[br] | 
-    //div[em] | 
     //div[normalize-space(text())] | 
     //div[span[normalize-space(text())]]
 `;
