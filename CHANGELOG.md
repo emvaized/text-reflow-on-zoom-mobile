@@ -1,3 +1,8 @@
+### 1.0.6
+- Switched to XPath selector for more accurate detection of text elements
+- Improved the script's performance on heavy pages
+- Scroll any element into view horizontally, if it's not detected as image
+
 ### 1.0.5
 - Scroll element into view horizontally only if it matches as a text element, to zoom images more comfortably
 - Various performance and code improvements
