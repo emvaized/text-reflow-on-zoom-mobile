@@ -17,32 +17,48 @@
 (function() {
     'use strict';
 
-    const textElementsSelector = 'p,a,h1,h2,h3,h4,h5,h6,li,div:has(> br),div:has(> span:not(:empty)),div:has(> em)';
+    const xpathSelector = `
+    //p | 
+    //a[normalize-space(text())] | 
+    //h1 | 
+    //h2 | 
+    //h3 | 
+    //h4 | 
+    //h5 | 
+    //h6 | 
+    //li | 
+    //div[b or em or i] | 
+    //div[normalize-space(text())] | 
+    //div[span[normalize-space(text())]]
+`;
+
     let isCssInjected = false, isPinching = false;
     let zoomTarget, targetDyOffsetRatio;
 
+    // Track all text elements queried by the selector
+    const allTextElements = new Set();
+
     function reflowText() {
         if (!isCssInjected) {
-            const styleContent = `.text-reflow-userscript { word-wrap: break-word !important; overflow-wrap:break-word !important; max-width:var(--reflow-max-width) !important; }
+            const styleContent = `.text-reflow-userscript { word-wrap: break-word !important; overflow-wrap:break-word !important; max-width:var(--text-reflow-max-width) !important; }
             .text-reflow-scroll-padding {scroll-margin-left: 1vw !important;}`;
             const styleElement = document.createElement('style');
             styleElement.textContent = styleContent;
             document.head.appendChild(styleElement);
+            isCssInjected = true;
         }
 
         const maxAllowedWidth = Math.round(window.visualViewport.width * 0.96);
-        document.documentElement.style.setProperty('--reflow-max-width', `${maxAllowedWidth}px`);
+        document.documentElement.style.setProperty('--text-reflow-max-width', `${maxAllowedWidth}px`);
 
         // Select elements likely to contain text
-        const textElements = document.querySelectorAll(textElementsSelector);
+        const xpathResult = document.evaluate(xpathSelector, document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+        allTextElements.clear();
 
-        // Keep track of elements that should be excluded because they are nested
-        const excludedElements = new Set();
+        for (let i = 0, n = xpathResult.snapshotLength, el; i < n; i++) {
+            el = xpathResult.snapshotItem(i);
 
-        for (let i = 0, n = textElements.length, el; i < n; i++) {
-            el = textElements[i];
-
-            if (excludedElements.has(el)) continue;
+            if (!el.offsetParent) continue;
             if (!el.textContent.trim()) continue;
 
             // Proccess only top-level text elements
@@ -50,9 +66,8 @@
             let parent = el.parentElement;
 
             while (parent) {
-                if (parent.matches(textElementsSelector)) {
+                if (elementIsTextElement(parent)) {
                     isTopLevel = false;
-                    excludedElements.add(el);
                     break;
                 }
                 parent = parent.parentElement;
@@ -60,7 +75,7 @@
             if (isTopLevel) {
                 // Apply CSS styles to element and skip it next time
                 el.classList.add('text-reflow-userscript');
-                excludedElements.add(el);
+                allTextElements.add(el);
             } 
         }
 
@@ -78,7 +93,8 @@
                 });
 
                 // Scroll element into view horizontally
-                if (zoomTarget.matches(textElementsSelector)) {
+                // if (elementIsTextElement(zoomTarget)) {
+                if (zoomTarget.nodeName !== 'IMG'){
                     zoomTarget.classList.add('text-reflow-scroll-padding')
                     zoomTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
                     zoomTarget.classList.remove('text-reflow-scroll-padding')
@@ -88,6 +104,10 @@
                 zoomTarget = null;
                 targetDyOffsetRatio = null;
         }
+    }
+
+    function elementIsTextElement(element) {
+        return allTextElements.has(element);
     }
 
     // Detect start of multi-touch (pinch) gesture
@@ -109,7 +129,7 @@
             const elementsFromPoint = document.elementsFromPoint(midpointX, midpointY);
             for (let i = 0, n = elementsFromPoint.length, element; i < n; i++) {
                 element = elementsFromPoint[i];
-                if (element.matches(textElementsSelector)) {
+                if (elementIsTextElement(element)) {
                     possibleZoomTarget = element;
                     break;
                 }
