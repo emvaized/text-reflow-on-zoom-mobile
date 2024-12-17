@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Text reflow on zoom (text wrap)",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "Fits all text to screen width after a pinch gesture on phone. Recreates text wrap feature from Opera Mobile.",
     "author": "emvaized",
     "browser_specific_settings": {

@@ -1,3 +1,7 @@
+### 1.0.7
+- Added support for `<pre>` elements
+- Don't scroll VIDEO and IFRAME elements into the view horizontally
+
 ### 1.0.6
 - Switched to XPath selector for more accurate detection of text elements
 - Improved the script's performance on heavy pages
