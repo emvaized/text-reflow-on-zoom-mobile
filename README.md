@@ -21,15 +21,15 @@ If you enjoy this project, please consider supporting further development by mak
 
 ## Possible issues
 
-Since it is my first attempt of implementing this feature, there might be some problems: 
+This addon is relatively new and experimental, so some problems might occur. Please feel free to share your thoughts, ideas and suggestions by creating an [issue ticket](https://github.com/emvaized/text-reflow-on-zoom-mobile/issues/new)!
 
-- Some reflowed text elements might be misaligned, if they are positioned inside an element with `align-items:center`
+- Some reflowed text elements might be horizontally misaligned, if they are positioned inside a parent element with tricky alignment rules
 
-- The script attempts to guess text element which you were zooming into, and scrolls it into view after reflow. But this feature is buggy and doesn't work reliably all the time
+- The script attempts to guess text element which you were zooming into, and scrolls it into view after reflow. But it doesn't work reliably all the time
 
-- Some text elements might be ignored by the script, for example `div` elements, or `span` elements with `display:inline` rule set. I am yet to figure out how to target these elements without too much performance overhead and unwanted reflows
+- Some elements with text might not reflowed, for example `div` elements, or `span` elements with inline display styling
 
-## Privacy
+## Privacy 🛡️
 This tool doesn't collect any private data. It is fully open source, and you can see the code on Github. It requires access to all urls in order to function properly.
 
 ## Contributing
