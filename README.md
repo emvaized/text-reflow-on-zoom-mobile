@@ -1,7 +1,7 @@
 # <sub><img src="./src/icon.png" height="45" width="45"></sub> Text reflow on zoom (mobile)
 
-[![Greasy Fork Downloads](https://img.shields.io/greasyfork/dt/514789?label=Greasyfork+installs&logo=greasyfork)](https://greasyfork.org/scripts/514789-text-reflow-on-zoom-by-pinch-gesture-mobile)
 [![Mozilla Add-on](https://img.shields.io/amo/users/text-reflow-on-zoom-mobile?color=%23FF6611&label=Firefox+users&logo=Firefox)](https://addons.mozilla.org/firefox/addon/text-reflow-on-zoom-mobile/)
+[![Greasy Fork Downloads](https://img.shields.io/greasyfork/dt/514789?label=Greasyfork+installs&logo=greasyfork)](https://greasyfork.org/scripts/514789-text-reflow-on-zoom-by-pinch-gesture-mobile)
 [![Mozilla Add-on Stars](https://img.shields.io/amo/stars/text-reflow-on-zoom-mobile)](https://addons.mozilla.org/firefox/addon/text-reflow-on-zoom-mobile/)
 [![GitHub Release](https://img.shields.io/github/v/release/emvaized/text-reflow-on-zoom-mobile?&label=latest+release)](https://github.com/emvaized/text-reflow-on-zoom-mobile/releases)
 
