@@ -1,3 +1,7 @@
+### 1.0.8
+- Added support for lazy loaded content on websites
+- Code refactored and performance imporved
+
 ### 1.0.7
 - Added support for `<pre>` elements
 - Don't scroll `<video>` and `<iframe>` elements into the view horizontally
