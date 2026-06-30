@@ -28,9 +28,7 @@
     //h6 |
     //li |
     //pre |
-    //div[b or em or i] |
-    //div[normalize-space(text())] |
-    //div[span[normalize-space(text())]]
+    //div[b or em or i or normalize-space(text()) or span[normalize-space(text())]]
 `;
 
     const TEXT_CLASS = 'text-reflow-userscript';
