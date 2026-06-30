@@ -67,7 +67,7 @@
             window.scrollTo({ top: scrollToPosition, behavior: 'instant' });
 
             // Scroll element into view horizontally
-            if (!['IMG', 'VIDEO', 'IFRAME'].includes(zoomTarget.nodeName) && zoomTarget.classList.contains(TEXT_CLASS)) {
+            if (!['IMG', 'VIDEO', 'IFRAME'].includes(zoomTarget.nodeName) && zoomTarget.textContent.trim()) {
                 zoomTarget.classList.add(SCROLL_PADDING_CLASS);
                 zoomTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
                 zoomTarget.classList.remove(SCROLL_PADDING_CLASS);
