@@ -105,8 +105,8 @@
     function canProcessElement(el) {
         if (!(el instanceof HTMLElement)) return false;
         if (el.classList.contains(TEXT_CLASS)) return false;
-        if (!el.offsetParent) return false;
         if (!el.textContent.trim()) return false;
+        if (!el.offsetParent) return false;
 
         // Proccess only top-level text elements
         let parent = el.parentElement;
