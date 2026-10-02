@@ -1,6 +1,7 @@
 ### 1.1.0
 - Added support for lazy loaded content on websites
 - Code refactored for better performance
+- Scroll horizontally only when text element in the center
 
 ### 1.0.7
 - Added support for `<pre>` elements
