@@ -1,3 +1,6 @@
+### 1.1.1
+- Improved detection of images, videos or iframes in center of pinch gesture
+
 ### 1.1.0
 - Added support for lazy loaded content on websites
 - Code refactored for better performance
