@@ -3,7 +3,7 @@
 // @name:ru      Text reflow on zoom for mobile (text wrap)
 // @description  Fits all text to the screen width after a pinch gesture on phone 
 // @description:ru  Подгонка текста под ширину экрана после жеста увеличения на телефоне
-// @version      1.0.8
+// @version      1.1.0
 // @author       emvaized
 // @license      MIT
 // @homepageURL  https://github.com/emvaized/text-reflow-on-zoom-mobile
@@ -31,14 +31,13 @@
     //div[b or em or i or normalize-space(text()) or span[normalize-space(text())]]
 `;
 
-    const TEXT_CLASS = 'text-reflow-userscript';
-    const SCROLL_PADDING_CLASS = 'text-reflow-scroll-padding';
+    const TEXT_CLASS = 'textReflowScript';
+    const SCROLL_PADDING_CLASS = 'textReflowScrollPadding';
 
     let isCssInjected = false;
     let isPinching = false;
     let zoomTarget = null;
     let targetDyOffsetRatio = null;
-    let mutationDebounceTimer = null;
 
     function reflowText() {
         if (!isCssInjected) {
@@ -76,7 +75,6 @@
             targetDyOffsetRatio = null;
         }
     }
-
 
     function injectStyles() {
         const styleContent = `.${TEXT_CLASS} { word-wrap: break-word !important; overflow-wrap: break-word !important; max-width: var(--text-reflow-max-width) !important; }
@@ -125,7 +123,6 @@
             }
         }
     }
-
 
     // Detect start of multi-touch (pinch) gesture
     function handleTouchStart(event) {
