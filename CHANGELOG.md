@@ -1,6 +1,6 @@
-### 1.0.8
+### 1.1.0
 - Added support for lazy loaded content on websites
-- Code refactored and performance imporved
+- Code refactored for better performance
 
 ### 1.0.7
 - Added support for `<pre>` elements
