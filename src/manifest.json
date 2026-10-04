@@ -14,7 +14,16 @@
     },
     "icons": {
         "48": "icon.png"
-      },
+    },
+    "options_ui": {
+        "page": "options/options.html"
+    },
+    "action": {
+        "default_popup": "options/options.html",
+        "default_icon": {
+          "48": "icon.svg"
+        }
+    },
     "content_scripts": [
       {
         "matches": [

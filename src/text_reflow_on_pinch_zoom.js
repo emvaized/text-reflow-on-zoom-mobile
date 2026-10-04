@@ -14,7 +14,7 @@
 // @run-at       document-start
 // ==/UserScript==
 
-(function() {
+(async function() {
     'use strict';
 
     const xpathSelector = `
@@ -38,6 +38,23 @@
     let isPinching = false;
     let zoomTarget = null;
     let targetDyOffsetRatio = null;
+
+    // Options
+    let snapToTargetHorizontally = true;
+
+    // Load saved options from Chrome storage if available
+    if (typeof chrome !== "undefined" && chrome.storage) {
+        const loadedConfigs = await chrome.storage.sync.get(['snapToTargetHorizontally']);
+        if (loadedConfigs) {
+            snapToTargetHorizontally = loadedConfigs.snapToTargetHorizontally !== undefined ? loadedConfigs.snapToTargetHorizontally : true;
+        }
+
+        chrome.storage.onChanged.addListener((c) => {
+            if (c.snapToTargetHorizontally) {
+                snapToTargetHorizontally = c.snapToTargetHorizontally.newValue;
+            }
+        });
+    }
 
     function reflowText() {
         if (!isCssInjected) {
@@ -64,7 +81,7 @@
             window.scrollTo({ top: scrollToPosition, behavior: 'instant' });
 
             // Scroll element into view horizontally
-            if (!['IMG', 'VIDEO', 'IFRAME'].includes(zoomTarget.nodeName) && !zoomTarget.closest('img, video, iframe') && zoomTarget.textContent.trim()) {
+            if (snapToTargetHorizontally && !zoomTarget.closest?.('img, video, iframe') && zoomTarget.textContent.trim()) {
                 zoomTarget.classList.add(SCROLL_PADDING_CLASS);
                 zoomTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
                 zoomTarget.classList.remove(SCROLL_PADDING_CLASS);

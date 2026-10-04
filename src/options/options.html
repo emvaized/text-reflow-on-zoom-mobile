@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Reflow on Zoom - Options</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 16px;
+        }
+        label {
+            margin-left: 8px;
+        }
+        #footer-buttons {
+            margin-top: 16px;
+        }
+        button {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        button img {
+            margin-right: 5px;
+        }
+        hr{
+            opacity: 0.2;
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="snapToTargetHorizontally">
+    <label for="snapToTargetHorizontally">Snap to target element horizontally after reflow</label>
+    <br><br>
+
+    <hr>
+    <div id='footer-buttons'>
+        <button type='button' id='donateButton'> 
+            <img height='15px' width='15px' src="./icons/donate.svg" /> Support this project</button>
+        <!-- <button type='button' id='writeAReviewButton'> 
+        <img height='15px' width='15px' src="./icons/review.svg" /> Write a Review</button>
+        <button type='button' id='githubButton'>
+            <img height='15px' width='15px' src="./icons/github.svg" /> View GitHub</button> -->
+    </div>
+
+    <script src="options.js"></script>
+</body>
+</html>
