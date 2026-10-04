@@ -41,19 +41,32 @@
 
     // Options
     let snapToTargetHorizontally = true;
-
+    let blacklistDomains = 'youtube.com,maps.google.com,tiktok.com';
+        
     // Load saved options from Chrome storage if available
     if (typeof chrome !== "undefined" && chrome.storage) {
-        const loadedConfigs = await chrome.storage.sync.get(['snapToTargetHorizontally']);
+        const loadedConfigs = await chrome.storage.sync.get(['snapToTargetHorizontally', 'blacklistDomains']);
         if (loadedConfigs) {
             snapToTargetHorizontally = loadedConfigs.snapToTargetHorizontally !== undefined ? loadedConfigs.snapToTargetHorizontally : true;
+            blacklistDomains = loadedConfigs.blacklistDomains || blacklistDomains;
         }
 
         chrome.storage.onChanged.addListener((c) => {
-            if (c.snapToTargetHorizontally) {
+            if (c.snapToTargetHorizontally){
                 snapToTargetHorizontally = c.snapToTargetHorizontally.newValue;
             }
+            if (c.blacklistDomains){
+                blacklistDomains = c.blacklistDomains.newValue;
+            }
         });
+    }
+
+    // Prevent reflow on blacklisted domains
+    const currentDomain = window.location.hostname;
+    const blacklistedDomainsArray = blacklistDomains.split(',').map(domain => domain.trim());
+    if (blacklistedDomainsArray.some(domain => currentDomain.includes(domain))) {
+        console.log(`Text reflow on zoom: Skipping reflow for blacklisted domain: ${currentDomain}`);
+        return;
     }
 
     function reflowText() {
