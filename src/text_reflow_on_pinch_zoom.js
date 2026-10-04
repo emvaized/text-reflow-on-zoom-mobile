@@ -188,6 +188,12 @@
             // Store possible target of a pinch gesture
             if (event.target instanceof Element) zoomTarget = event.target;
 
+            // Look for closest text element
+            let closestTextElement = zoomTarget.closest(`.${TEXT_CLASS}`);
+            if (closestTextElement) {
+                zoomTarget = closestTextElement;
+            }
+
             if (event.touches.length === 2){
                 // Try to calculate the midpoint between the two touch points
                 const touch1 = event.touches[0];
