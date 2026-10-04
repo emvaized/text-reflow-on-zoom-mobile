@@ -72,7 +72,7 @@
     // Prevent reflow on blacklisted domains
     const currentDomain = window.location.hostname;
     const blacklistedDomainsArray = blacklistDomains.split(',').map(domain => domain.trim());
-    if (blacklistedDomainsArray.some(domain => currentDomain.includes(domain))) {
+    if (blacklistedDomainsArray.some(domain => currentDomain.includes(domain.trim()))) {
         console.log(`Text reflow on zoom: Skipping reflow for blacklisted domain: ${currentDomain}`);
         return;
     }
