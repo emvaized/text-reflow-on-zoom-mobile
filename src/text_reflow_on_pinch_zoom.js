@@ -3,7 +3,7 @@
 // @name:ru      Text reflow on zoom for mobile (text wrap)
 // @description  Fits all text to the screen width after a pinch gesture on phone 
 // @description:ru  Подгонка текста под ширину экрана после жеста увеличения на телефоне
-// @version      1.1.1
+// @version      1.2.0
 // @author       emvaized
 // @license      MIT
 // @homepageURL  https://github.com/emvaized/text-reflow-on-zoom-mobile
@@ -39,16 +39,21 @@
     let zoomTarget = null;
     let targetDyOffsetRatio = null;
 
+    let lastTapDownTime = 0; // To track timing between taps
+    const doubleTapTimeout = 200; // Timeout for second tap in milliseconds
+
     // Options
     let snapToTargetHorizontally = true;
     let blacklistDomains = 'youtube.com,maps.google.com,tiktok.com';
+    let supportOneFingerZoom = true; // Option to support one-finger zoom (double-tap + move finger up or down)
         
     // Load saved options from Chrome storage if available
     if (typeof chrome !== "undefined" && chrome.storage) {
-        const loadedConfigs = await chrome.storage.sync.get(['snapToTargetHorizontally', 'blacklistDomains']);
+        const loadedConfigs = await chrome.storage.sync.get(['snapToTargetHorizontally', 'blacklistDomains', 'supportOneFingerZoom']);
         if (loadedConfigs) {
-            snapToTargetHorizontally = loadedConfigs.snapToTargetHorizontally !== undefined ? loadedConfigs.snapToTargetHorizontally : true;
+            snapToTargetHorizontally = loadedConfigs.snapToTargetHorizontally !== undefined ? loadedConfigs.snapToTargetHorizontally : snapToTargetHorizontally;
             blacklistDomains = loadedConfigs.blacklistDomains || blacklistDomains;
+            supportOneFingerZoom = loadedConfigs.supportOneFingerZoom !== undefined ? loadedConfigs.supportOneFingerZoom : supportOneFingerZoom;
         }
 
         chrome.storage.onChanged.addListener((c) => {
@@ -57,6 +62,9 @@
             }
             if (c.blacklistDomains){
                 blacklistDomains = c.blacklistDomains.newValue;
+            }
+            if (c.supportOneFingerZoom){
+                supportOneFingerZoom = c.supportOneFingerZoom.newValue;
             }
         });
     }
@@ -156,32 +164,53 @@
 
     // Detect start of multi-touch (pinch) gesture
     function handleTouchStart(event) {
-        if (!event.touches || event.touches.length < 2) return;
-        isPinching = true;
+        if (!event.touches) return;
 
-        // Store possible target of zoom gesture
-        if (event.target instanceof Element) zoomTarget = event.target;
-
-        // Calculate the midpoint between the two touch points
-        const touch1 = event.touches[0];
-        const touch2 = event.touches[1];
-        const midpointX = (touch1.clientX + touch2.clientX) / 2;
-        const midpointY = (touch1.clientY + touch2.clientY) / 2;
-
-        // Use document.elementFromPoint to get the element at the midpoint
-        const elementsFromPoint = document.elementsFromPoint(midpointX, midpointY);
-        for (const element of elementsFromPoint) {
-            if (element instanceof HTMLElement && element.classList.contains(TEXT_CLASS)) {
-                zoomTarget = element;
-                break;
+        if (event.touches.length === 1 && supportOneFingerZoom) {
+            // Check for double-tap gesture
+            const currentTime = new Date().getTime();
+            const timeSinceLastTap = currentTime - lastTapDownTime;
+            
+            if (timeSinceLastTap < doubleTapTimeout && timeSinceLastTap > 0) {
+                // Double-tap detected
+                isPinching = true;
+                lastTapDownTime = 0;
+            } else {
+                // Not a double-tap, update last tap time
+                lastTapDownTime = currentTime;
             }
+        } else if (event.touches.length === 2) {
+            /// Two-finger pinch gesture
+            isPinching = true;
         }
-        if (!zoomTarget && elementsFromPoint.length) zoomTarget = elementsFromPoint[0];
 
-        // Store screen coordinates of target to scroll it into view after reflow
-        if (zoomTarget instanceof Element) {
-            const rect = zoomTarget.getBoundingClientRect();
-            targetDyOffsetRatio = rect.top / window.innerHeight;
+        if (isPinching) {
+            // Store possible target of a pinch gesture
+            if (event.target instanceof Element) zoomTarget = event.target;
+
+            if (event.touches.length === 2){
+                // Try to calculate the midpoint between the two touch points
+                const touch1 = event.touches[0];
+                const touch2 = event.touches[1];
+                const midpointX = (touch1.clientX + touch2.clientX) / 2;
+                const midpointY = (touch1.clientY + touch2.clientY) / 2;
+
+                // Use document.elementFromPoint to get the element at the midpoint
+                const elementsFromPoint = document.elementsFromPoint(midpointX, midpointY);
+                for (const element of elementsFromPoint) {
+                    if (element instanceof HTMLElement && element.classList.contains(TEXT_CLASS)) {
+                        zoomTarget = element;
+                        break;
+                    }
+                }
+                if (!zoomTarget && elementsFromPoint.length) zoomTarget = elementsFromPoint[0];
+            }
+
+            // Store screen coordinates of target to scroll it into view after reflow
+            if (zoomTarget instanceof Element) {
+                const rect = zoomTarget.getBoundingClientRect();
+                targetDyOffsetRatio = rect.top / window.innerHeight;
+            }
         }
     }
 

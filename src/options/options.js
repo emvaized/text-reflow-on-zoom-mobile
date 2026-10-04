@@ -3,12 +3,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Load saved options from Chrome storage if available
     if (typeof chrome !== "undefined" && chrome.storage) {
-        chrome.storage.sync.get(['snapToTargetHorizontally', 'blacklistDomains'], function(configs) {
+        chrome.storage.sync.get(['snapToTargetHorizontally', 'blacklistDomains', 'supportOneFingerZoom'], function(configs) {
             if (configs.snapToTargetHorizontally !== undefined) {
                 snapToTargetHorizontallyCheckbox.checked = configs.snapToTargetHorizontally;
             }
             if (configs.blacklistDomains !== undefined) {
                 document.getElementById('blacklistDomains').value = configs.blacklistDomains;
+            }
+            if (configs.supportOneFingerZoom !== undefined) {
+                document.getElementById('supportOneFingerZoom').checked = configs.supportOneFingerZoom;
             }
         });
     }
@@ -24,6 +27,13 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('blacklistDomains').addEventListener('change', function() {
         if (typeof chrome !== "undefined" && chrome.storage) {
             chrome.storage.sync.set({ blacklistDomains: this.value });
+        }
+    });
+
+    // Save one-finger zoom option when checkbox is changed
+    document.getElementById('supportOneFingerZoom').addEventListener('change', function() {
+        if (typeof chrome !== "undefined" && chrome.storage) {
+            chrome.storage.sync.set({ supportOneFingerZoom: this.checked });
         }
     });
 });
