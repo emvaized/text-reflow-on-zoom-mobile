@@ -37,7 +37,6 @@
     let isCssInjected = false;
     let isPinching = false;
     let zoomTarget = null;
-    let targetDyOffsetRatio = null;
 
     let lastTapDownTime = 0; // To track timing between taps
     const doubleTapTimeout = 200; // Timeout for second tap in milliseconds
@@ -95,9 +94,16 @@
         processAllTextInNode(document.body);
 
         // Scroll initial target element into view
-        if (zoomTarget && targetDyOffsetRatio != null) {
+        if (zoomTarget && zoomTarget instanceof Element) {
+            // Look for closest text element
+            let closestTextElement = zoomTarget.closest(`.${TEXT_CLASS}`);
+            if (closestTextElement) {
+                zoomTarget = closestTextElement;
+            }
+
             // Scroll to element vertically, according to new page layout
             const rect = zoomTarget.getBoundingClientRect();
+            const targetDyOffsetRatio = rect.top / window.innerHeight;
             const scrollToPosition = rect.top + window.pageYOffset - targetDyOffsetRatio * window.innerHeight;
             window.scrollTo({ top: scrollToPosition, behavior: 'instant' });
 
@@ -110,7 +116,6 @@
 
             // Reset the target and offset after scrolling
             zoomTarget = null;
-            targetDyOffsetRatio = null;
         }
     }
 
@@ -188,12 +193,6 @@
             // Store possible target of a pinch gesture
             if (event.target instanceof Element) zoomTarget = event.target;
 
-            // Look for closest text element
-            let closestTextElement = zoomTarget.closest(`.${TEXT_CLASS}`);
-            if (closestTextElement) {
-                zoomTarget = closestTextElement;
-            }
-
             if (event.touches.length === 2){
                 // Try to calculate the midpoint between the two touch points
                 const touch1 = event.touches[0];
@@ -210,12 +209,6 @@
                     }
                 }
                 if (!zoomTarget && elementsFromPoint.length) zoomTarget = elementsFromPoint[0];
-            }
-
-            // Store screen coordinates of target to scroll it into view after reflow
-            if (zoomTarget instanceof Element) {
-                const rect = zoomTarget.getBoundingClientRect();
-                targetDyOffsetRatio = rect.top / window.innerHeight;
             }
         }
     }
