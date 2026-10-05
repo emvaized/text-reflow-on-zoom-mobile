@@ -213,14 +213,7 @@
                 const midpointY = (touch1.clientY + touch2.clientY) / 2;
 
                 // Use document.elementFromPoint to get the element at the midpoint
-                const elementsFromPoint = document.elementsFromPoint(midpointX, midpointY);
-                for (const element of elementsFromPoint) {
-                    if (element instanceof HTMLElement && element.classList.contains(TEXT_CLASS)) {
-                        zoomTarget = element;
-                        break;
-                    }
-                }
-                if (!zoomTarget && elementsFromPoint.length) zoomTarget = elementsFromPoint[0];
+                zoomTarget = document.elementFromPoint(midpointX, midpointY) || zoomTarget;
             }
         }
     }
