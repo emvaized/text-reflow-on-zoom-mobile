@@ -42,17 +42,19 @@
     const doubleTapTimeout = 200; // Timeout for second tap in milliseconds
 
     // Options
-    let snapToTargetHorizontally = true;
     let blacklistDomains = 'youtube.com,maps.google.com,tiktok.com';
+    let snapToTargetHorizontally = true; // Snap to target element horizontally after reflow
     let supportOneFingerZoom = true; // Option to support one-finger zoom (double-tap + move finger up or down)
+    let activateOnlyOnNonMobileView = false; // Option to activate only on non-mobile view (desktop view)
         
     // Load saved options from Chrome storage if available
     if (typeof chrome !== "undefined" && chrome.storage) {
-        const loadedConfigs = await chrome.storage.sync.get(['snapToTargetHorizontally', 'blacklistDomains', 'supportOneFingerZoom']);
+        const loadedConfigs = await chrome.storage.sync.get(['snapToTargetHorizontally', 'blacklistDomains', 'supportOneFingerZoom', 'activateOnlyOnNonMobileView']);
         if (loadedConfigs) {
             snapToTargetHorizontally = loadedConfigs.snapToTargetHorizontally !== undefined ? loadedConfigs.snapToTargetHorizontally : snapToTargetHorizontally;
             blacklistDomains = loadedConfigs.blacklistDomains || blacklistDomains;
             supportOneFingerZoom = loadedConfigs.supportOneFingerZoom !== undefined ? loadedConfigs.supportOneFingerZoom : supportOneFingerZoom;
+            activateOnlyOnNonMobileView = loadedConfigs.activateOnlyOnNonMobileView !== undefined ? loadedConfigs.activateOnlyOnNonMobileView : activateOnlyOnNonMobileView;
         }
 
         chrome.storage.onChanged.addListener((c) => {
@@ -65,6 +67,9 @@
             if (c.supportOneFingerZoom){
                 supportOneFingerZoom = c.supportOneFingerZoom.newValue;
             }
+            if (c.activateOnlyOnNonMobileView){
+                activateOnlyOnNonMobileView = c.activateOnlyOnNonMobileView.newValue;
+            }
         });
     }
 
@@ -74,6 +79,13 @@
     if (blacklistedDomainsArray.some(domain => currentDomain.includes(domain.trim()))) {
         console.log(`Text reflow on zoom: Skipping reflow for blacklisted domain: ${currentDomain}`);
         return;
+    }
+
+    /// Prevent on pages optimized for mobiles
+    // A mobile device with a width set higher than ~700px means the browser had to fake a desktop view (defaulting to 980px)
+    if (activateOnlyOnNonMobileView) {
+        const isDesktopView = window.innerWidth > 768;
+        if (!isDesktopView) return;
     }
 
     function reflowText() {
