@@ -111,26 +111,28 @@
         // Preserve the target's position relative to the viewport after the text reflows into the narrower width.
         if (targetElement && targetViewportOffset !== null){
             const targetRect = targetElement.getBoundingClientRect();
-            const scrollToPosition = window.pageYOffset + targetRect.top - targetViewportOffset;
+            const scrollToPosition = window.pageYOffset + (zoomTargetRect.rect?.top ?? targetRect.top) - targetViewportOffset;
             window.scrollTo({ top: scrollToPosition, behavior: 'instant' });
 
-            // Scroll element into view horizontally
-            if (snapToTargetHorizontally){
-                if (targetElement) {
-                    let t = targetElement;
-                    // t = t.closest(`.${TEXT_CLASS}`) || t; // Ensure we scroll the closest text element
-                    
-                    /// Prevent horizontal snapping if target element is image
-                    t.classList.add(SCROLL_PADDING_CLASS);
-                    t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-                    t.classList.remove(SCROLL_PADDING_CLASS);
-                } else {
-                    window.scrollTo({ 
-                        top: targetRect.top + window.pageYOffset + (window.innerHeight / 2), 
-                        left: targetRect.left + window.pageXOffset + (window.innerWidth / 2),
-                        behavior: 'smooth'
-                    });
-                }
+            // Scroll text targets into view horizontally, but keep media targets
+            // vertically aligned without horizontal snapping
+            const shouldSnapHorizontally = snapToTargetHorizontally
+                && targetElement
+                && !['IMG', 'VIDEO', 'IFRAME'].includes(targetElement.tagName);
+
+            if (shouldSnapHorizontally) {
+                let t = targetElement;
+                t = t.closest(`.${TEXT_CLASS}`) || t;
+                
+                t.classList.add(SCROLL_PADDING_CLASS);
+                t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                t.classList.remove(SCROLL_PADDING_CLASS);
+            } else if (!targetElement) {
+                window.scrollTo({ 
+                    top: targetRect.top + window.pageYOffset + (window.innerHeight / 2), 
+                    left: targetRect.left + window.pageXOffset + (window.innerWidth / 2),
+                    behavior: 'smooth'
+                });
             }
             
             zoomTargetRect = null;
