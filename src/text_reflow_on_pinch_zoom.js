@@ -37,6 +37,7 @@
     let isCssInjected = false;
     let isPinching = false;
     let zoomTarget = null;
+    let targetDyOffsetRatio;
 
     let lastTapDownTime = 0; // To track timing between taps
     const doubleTapTimeout = 200; // Timeout for second tap in milliseconds
@@ -115,7 +116,6 @@
 
             // Scroll to element vertically, according to new page layout
             const rect = zoomTarget.getBoundingClientRect();
-            const targetDyOffsetRatio = rect.top / window.innerHeight;
             const scrollToPosition = rect.top + window.pageYOffset - targetDyOffsetRatio * window.innerHeight;
             window.scrollTo({ top: scrollToPosition, behavior: 'instant' });
 
@@ -214,6 +214,11 @@
 
                 // Use document.elementFromPoint to get the element at the midpoint
                 zoomTarget = document.elementFromPoint(midpointX, midpointY) || zoomTarget;
+            }
+
+            if (zoomTarget && zoomTarget instanceof Element) {
+                const rect = zoomTarget.getBoundingClientRect();
+                targetDyOffsetRatio = rect.top / window.innerHeight;
             }
         }
     }
