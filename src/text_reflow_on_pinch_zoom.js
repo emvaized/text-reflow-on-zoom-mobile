@@ -37,7 +37,9 @@
     let isCssInjected = false;
     let isPinching = false;
     let zoomTarget = null;
-    let targetDyOffsetRatio;
+    let targetViewportOffset = null;
+    let targetElement = null;
+    let zoomTargetRect = null;
 
     let lastTapDownTime = 0; // To track timing between taps
     const doubleTapTimeout = 200; // Timeout for second tap in milliseconds
@@ -106,29 +108,35 @@
         // Select elements likely to contain text
         processAllTextInNode(document.body);
 
-        // Scroll initial target element into view
-        if (zoomTarget && zoomTarget instanceof Element) {
-            // Look for closest text element
-            let closestTextElement = zoomTarget.closest(`.${TEXT_CLASS}`);
-            if (closestTextElement) {
-                zoomTarget = closestTextElement;
-            }
-
-            // Scroll to element vertically, according to new page layout
-            const rect = zoomTarget.getBoundingClientRect();
-            const scrollToPosition = rect.top + window.pageYOffset - targetDyOffsetRatio * window.innerHeight;
+        // Preserve the target's position relative to the viewport after the text reflows into the narrower width.
+        if (targetElement && targetViewportOffset !== null){
+            const targetRect = targetElement.getBoundingClientRect();
+            const scrollToPosition = window.pageYOffset + targetRect.top - targetViewportOffset;
             window.scrollTo({ top: scrollToPosition, behavior: 'instant' });
 
             // Scroll element into view horizontally
-            if (snapToTargetHorizontally && !zoomTarget.closest?.('img, video, iframe') && zoomTarget.textContent.trim()) {
-                zoomTarget.classList.add(SCROLL_PADDING_CLASS);
-                zoomTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-                zoomTarget.classList.remove(SCROLL_PADDING_CLASS);
+            if (snapToTargetHorizontally){
+                if (targetElement) {
+                    let t = targetElement;
+                    // t = t.closest(`.${TEXT_CLASS}`) || t; // Ensure we scroll the closest text element
+                    
+                    /// Prevent horizontal snapping if target element is image
+                    t.classList.add(SCROLL_PADDING_CLASS);
+                    t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                    t.classList.remove(SCROLL_PADDING_CLASS);
+                } else {
+                    window.scrollTo({ 
+                        top: targetRect.top + window.pageYOffset + (window.innerHeight / 2), 
+                        left: targetRect.left + window.pageXOffset + (window.innerWidth / 2),
+                        behavior: 'smooth'
+                    });
+                }
             }
-
-            // Reset the target and offset after scrolling
-            zoomTarget = null;
-        }
+            
+            zoomTargetRect = null;
+            targetViewportOffset = null;
+            targetElement = null;
+        } 
     }
 
     function injectStyles() {
@@ -211,16 +219,69 @@
                 const touch2 = event.touches[1];
                 const midpointX = (touch1.clientX + touch2.clientX) / 2;
                 const midpointY = (touch1.clientY + touch2.clientY) / 2;
-
-                // Use document.elementFromPoint to get the element at the midpoint
-                zoomTarget = document.elementFromPoint(midpointX, midpointY) || zoomTarget;
+                setZoomTargetRect(midpointX, midpointY);
+            } else if (event.touches.length === 1 && supportOneFingerZoom) {
+                // For one-finger zoom, use the touch point to find the target element
+                const touch = event.touches[0];
+                setZoomTargetRect(touch.clientX, touch.clientY);
             }
 
-            if (zoomTarget && zoomTarget instanceof Element) {
-                const rect = zoomTarget.getBoundingClientRect();
-                targetDyOffsetRatio = rect.top / window.innerHeight;
+            if (zoomTargetRect) {
+                targetViewportOffset = zoomTargetRect.rect.top;
+                targetElement = zoomTargetRect.parentElement?.closest(`.${TEXT_CLASS}`)
+                    || zoomTargetRect.parentElement
+                    || zoomTarget;
             }
         }
+    }
+
+    function setZoomTargetRect(x, y){
+        // Use document.elementFromPoint to set fallback element
+        zoomTarget = document.elementFromPoint(x, y) || zoomTarget;
+
+        zoomTargetRect = getTextAnchorAtPoint(x, y);
+        if (!zoomTargetRect) {
+            zoomTargetRect = {
+                rect: { left: x, top: y, parentElement: zoomTarget },
+            };
+        }
+    }
+
+    function getTextAnchorAtPoint(x, y) {
+        let textNode = null;
+        let range = null;
+
+        // Try to find the exact Text Node at (x, y)
+        if (document.caretPositionFromPoint) {
+            const pos = document.caretPositionFromPoint(x, y);
+            if (pos && pos.offsetNode.nodeType === Node.TEXT_NODE) {
+            textNode = pos.offsetNode;
+            range = document.createRange();
+            range.setStart(textNode, pos.offset);
+            range.setEnd(textNode, Math.min(pos.offset + 1, textNode.length));
+            }
+        } else if (document.caretRangeFromPoint) { // WebKit / Safari
+            const r = document.caretRangeFromPoint(x, y);
+            if (r && r.startContainer.nodeType === Node.TEXT_NODE) {
+            textNode = r.startContainer;
+            range = r;
+            }
+        }
+
+        // If a text node was hit, anchor to its exact bounding box
+        if (range) {
+            const rect = range.getBoundingClientRect();
+            // Verify point actually falls near valid text content
+            if (rect.width > 0 && rect.height > 0) {
+                return {
+                    node: textNode,
+                    parentElement: textNode.parentElement,
+                    rect: rect // Exact coordinates of the character/line
+                };
+            }
+        }
+
+        return null;
     }
 
     // Detect end of multi-touch (pinch) gesture
