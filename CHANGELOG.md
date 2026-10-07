@@ -1,3 +1,11 @@
+### 1.2.0
+- Added support for one finger zoom (double tap + move finger up/down)
+- Added ability to blacklist domains
+- Added option to activate script only on desktop view pages (not adapted for mobiles) - disabled by default
+- Implemented options page with ability to toggle settings
+- Refactored detection of zoom target element for better reliability
+- Other code optimisations and improvements
+
 ### 1.1.1
 - Improved detection of images, videos or iframes in center of pinch gesture
 
