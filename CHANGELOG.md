@@ -5,9 +5,11 @@
 - Implemented options page with ability to toggle settings
 - Refactored detection of zoom target element for better reliability
 - Other code optimisations and improvements
+
 - [1.2.1] Fixed wrong url for toolbar icon
 - [1.2.1] Fixed options page not adapted for mobile view
 - [1.2.1] Corrected options labels for better clarity
+- [1.2.2] Fixed current domain getting blacklisted when blacklist is empty
 
 ### 1.1.1
 - Improved detection of images, videos or iframes in center of pinch gesture

@@ -3,7 +3,7 @@
 // @name:ru      Text reflow on zoom for mobile (text wrap)
 // @description  Fits all text to the screen width after a pinch gesture on phone 
 // @description:ru  Подгонка текста под ширину экрана после жеста увеличения на телефоне
-// @version      1.2.0
+// @version      1.2.2
 // @author       emvaized
 // @license      MIT
 // @homepageURL  https://github.com/emvaized/text-reflow-on-zoom-mobile
