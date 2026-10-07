@@ -54,10 +54,10 @@
     if (typeof chrome !== "undefined" && chrome.storage) {
         const loadedConfigs = await chrome.storage.sync.get(['snapToTargetHorizontally', 'blacklistDomains', 'supportOneFingerZoom', 'activateOnlyOnNonMobileView']);
         if (loadedConfigs) {
-            snapToTargetHorizontally = loadedConfigs.snapToTargetHorizontally !== undefined ? loadedConfigs.snapToTargetHorizontally : snapToTargetHorizontally;
-            blacklistDomains = loadedConfigs.blacklistDomains || blacklistDomains;
-            supportOneFingerZoom = loadedConfigs.supportOneFingerZoom !== undefined ? loadedConfigs.supportOneFingerZoom : supportOneFingerZoom;
-            activateOnlyOnNonMobileView = loadedConfigs.activateOnlyOnNonMobileView !== undefined ? loadedConfigs.activateOnlyOnNonMobileView : activateOnlyOnNonMobileView;
+            snapToTargetHorizontally = loadedConfigs.snapToTargetHorizontally ?? snapToTargetHorizontally;
+            blacklistDomains = loadedConfigs.blacklistDomains ?? blacklistDomains;
+            supportOneFingerZoom = loadedConfigs.supportOneFingerZoom ?? supportOneFingerZoom;
+            activateOnlyOnNonMobileView = loadedConfigs.activateOnlyOnNonMobileView ?? activateOnlyOnNonMobileView;
         }
 
         chrome.storage.onChanged.addListener((c) => {
