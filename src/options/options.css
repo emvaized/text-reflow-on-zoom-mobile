@@ -73,10 +73,17 @@ h1 {
     font-weight: 600;
 }
 
-.setting-card .note {
+.setting-card .note, #refresh-page-hint {
     display: block;
     color: #5f6368;
     font-size: 0.875rem;
+}
+
+#refresh-page-hint{
+    text-align: center;
+    font-size: 1rem;
+    opacity: 0.7;
+    margin-top: 21px;
 }
 
 #blacklistDomains{
@@ -167,7 +174,7 @@ button img {
         border-color: #5f6368;
     }
 
-    .setting-card .note {
+    .setting-card .note, #refresh-page-hint {
         color: #9aa0a6;
     }
 }
