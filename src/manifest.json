@@ -13,7 +13,7 @@
       }
     },
     "icons": {
-        "48": "icon.png"
+      "48": "icon.png"
     },
     "options_ui": {
         "page": "options/options.html"
@@ -21,7 +21,7 @@
     "action": {
         "default_popup": "options/options.html",
         "default_icon": {
-          "48": "icon.svg"
+          "48": "icon.png"
         }
     },
     "permissions": [
