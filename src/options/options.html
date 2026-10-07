@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Reflow on Zoom - Options</title>
+    <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+    <main>
+        <h2>Settings</h2>
+
+        <section class="setting-card">
+            <input type="checkbox" id="activateOnlyOnNonMobileView">
+            <label for="activateOnlyOnNonMobileView">
+                <span class="label-title">Activate only on pages in desktop view</span>
+                <span class="note">Pages not adapted for mobile</span>
+            </label>
+        </section>
+
+        <section class="setting-card">
+            <input type="checkbox" id="snapToTargetHorizontally">
+            <label for="snapToTargetHorizontally">
+                <span class="label-title">Snap to target element horizontally after reflow</span>
+                <span class="note">Tries to guess the target element and scroll page to it</span>
+            </label>
+        </section>
+
+        <section class="setting-card">
+            <input type="checkbox" id="supportOneFingerZoom">
+            <label for="supportOneFingerZoom">
+                <span class="label-title">Support one-finger zoom</span>
+                <span class="note">Double-tap + move finger up or down</span>
+            </label>
+        </section>
+
+        <section class="setting-card">
+            <label for="blacklistDomains">
+                <span class="label-title">Blacklist domains (comma separated)</span>
+                <!-- <span class="note">Comma-separated</span> -->
+                <input type="text" class="note" id="blacklistDomains" placeholder="e.g., youtube.com,maps.google.com,tiktok.com">
+            </label>
+        </section>
+
+        <hr>
+        <div id='footer-buttons'>
+            <button type='button' id='donateButton'> 
+                <img height='15px' width='15px' src="./icons/donate.svg" /> Support this project</button>
+            <button type='button' id='writeAReviewButton'> 
+            <img height='15px' width='15px' src="./icons/review.svg" /> Write a Review</button>
+            <button type='button' id='githubButton'>
+                <img height='15px' width='15px' src="./icons/github.svg" /> View GitHub</button>
+        </div>
+
+    <script src="options.js"></script>
+    </main>
+</body>
+</html>
