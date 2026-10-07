@@ -12,7 +12,7 @@
 body {
     margin: 0;
     padding: max(16px, env(safe-area-inset-top)) var(--page-padding) max(16px, env(safe-area-inset-bottom));
-    background: #f6f7f9;
+    /* background: #f6f7f9; */
     color: #202124;
 }
 
