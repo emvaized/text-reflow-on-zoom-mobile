@@ -42,7 +42,7 @@
     let zoomTargetRect = null;
 
     let lastTapDownTime = 0; // To track timing between taps
-    const doubleTapTimeout = 200; // Timeout for second tap in milliseconds
+    const doubleTapTimeout = 300; // Timeout for second tap in milliseconds
 
     // Options
     let blacklistDomains = 'youtube.com,maps.google.com,tiktok.com';
