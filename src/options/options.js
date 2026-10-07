@@ -4,18 +4,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load saved options from Chrome storage if available
     if (typeof chrome !== "undefined" && chrome.storage) {
         chrome.storage.sync.get(['snapToTargetHorizontally', 'blacklistDomains', 'supportOneFingerZoom', 'activateOnlyOnNonMobileView'], function(configs) {
-            if (configs.snapToTargetHorizontally !== undefined) {
-                snapToTargetHorizontallyCheckbox.checked = configs.snapToTargetHorizontally;
-            }
-            if (configs.blacklistDomains !== undefined) {
-                document.getElementById('blacklistDomains').value = configs.blacklistDomains;
-            }
-            if (configs.supportOneFingerZoom !== undefined) {
-                document.getElementById('supportOneFingerZoom').checked = configs.supportOneFingerZoom;
-            }
-            if (configs.activateOnlyOnNonMobileView !== undefined) {
-                document.getElementById('activateOnlyOnNonMobileView').checked = configs.activateOnlyOnNonMobileView;
-            }
+            console.log(configs);
+
+            snapToTargetHorizontallyCheckbox.checked = configs.snapToTargetHorizontally ?? true;
+            document.getElementById('blacklistDomains').value = configs.blacklistDomains || 'youtube.com,maps.google.com,tiktok.com';
+            document.getElementById('supportOneFingerZoom').checked = configs.supportOneFingerZoom ?? true;
+            document.getElementById('activateOnlyOnNonMobileView').checked = configs.activateOnlyOnNonMobileView ?? false;
         });
     }
 
@@ -46,4 +40,20 @@ document.addEventListener('DOMContentLoaded', function() {
             chrome.storage.sync.set({ activateOnlyOnNonMobileView: this.checked });
         }
     });
+
+    setFooterButtons();
 });
+
+function setFooterButtons(){
+    document.querySelector("#donateButton").addEventListener("click", function () {
+        window.open('https://github.com/emvaized/emvaized.github.io/wiki/Donate-Page', '_blank');
+    });
+    
+    document.querySelector("#githubButton").addEventListener("click", function () {
+        window.open('https://github.com/emvaized/text-reflow-on-zoom-mobile', '_blank');
+    });
+    document.querySelector("#writeAReviewButton").addEventListener("click", function () {
+        const isFirefox = navigator.userAgent.indexOf("Firefox") > -1;
+        window.open(isFirefox ? 'https://addons.mozilla.org/firefox/addon/text-reflow-on-zoom-mobile/' : 'https://addons.mozilla.org/firefox/addon/text-reflow-on-zoom-mobile/', '_blank');
+    });
+}

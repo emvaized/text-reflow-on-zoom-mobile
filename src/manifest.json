@@ -24,6 +24,9 @@
           "48": "icon.svg"
         }
     },
+    "permissions": [
+      "storage"
+    ],
     "content_scripts": [
       {
         "matches": [

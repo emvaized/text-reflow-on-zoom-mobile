@@ -2,61 +2,56 @@
 <html>
 <head>
     <title>Text Reflow on Zoom - Options</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 16px;
-        }
-        label {
-            margin-left: 8px;
-        }
-        #footer-buttons {
-            margin-top: 16px;
-        }
-        button {
-            display: flex;
-            align-items: center;
-            margin-right: 10px;
-            padding: 5px 10px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        button img {
-            margin-right: 5px;
-        }
-        hr{
-            opacity: 0.2;
-        }
-    </style>
+    <link rel="stylesheet" href="options.css" />
 </head>
 <body>
-    <input type="checkbox" id="activateOnlyOnNonMobileView">
-    <label for="activateOnlyOnNonMobileView">Activate only on pages in desktop view (not adapted for mobile)</label>
-    <br><br>
+    <main>
+        <h1>Settings</h1>
 
-    <input type="checkbox" id="snapToTargetHorizontally">
-    <label for="snapToTargetHorizontally">Snap to target element horizontally after reflow</label>
-    <br><br>
 
-    <input type="checkbox" id="supportOneFingerZoom">
-    <label for="supportOneFingerZoom">Support one-finger zoom (double-tap + move finger up or down)</label>
-    <br><br>
+        <section class="setting-card">
+            <input type="checkbox" id="activateOnlyOnNonMobileView">
+            <label for="activateOnlyOnNonMobileView">
+                <span class="label-title">Activate only on pages in desktop view</span>
+                <span class="note">Pages not adapted for mobile</span>
+            </label>
+        </section>
 
-    <label for="blacklistDomains">Blacklist Domains (comma-separated):</label>
-    <br>
-    <input type="text" id="blacklistDomains" placeholder="e.g., youtube.com,maps.google.com,tiktok.com" style="width: 100%;">
-    <br><br>
+        <section class="setting-card">
+            <input type="checkbox" id="snapToTargetHorizontally">
+            <label for="snapToTargetHorizontally">
+                <span class="label-title">Snap to target element horizontally after reflow</span>
+                <span class="note">Tries to guess the target element and scroll page to it</span>
+            </label>
+        </section>
 
-    <hr>
-    <div id='footer-buttons'>
-        <button type='button' id='donateButton'> 
-            <img height='15px' width='15px' src="./icons/donate.svg" /> Support this project</button>
-        <!-- <button type='button' id='writeAReviewButton'> 
-        <img height='15px' width='15px' src="./icons/review.svg" /> Write a Review</button>
-        <button type='button' id='githubButton'>
-            <img height='15px' width='15px' src="./icons/github.svg" /> View GitHub</button> -->
-    </div>
+        <section class="setting-card">
+            <input type="checkbox" id="supportOneFingerZoom">
+            <label for="supportOneFingerZoom">
+                <span class="label-title">Support one-finger zoom</span>
+                <span class="note">Double-tap + move finger up or down</span>
+            </label>
+        </section>
+
+        <section class="setting-card">
+            <label for="blacklistDomains">
+                <span class="label-title">Blacklist domains (comma separated)</span>
+                <!-- <span class="note">Comma-separated</span> -->
+                <input type="text" class="note" id="blacklistDomains" placeholder="e.g., youtube.com,maps.google.com,tiktok.com">
+            </label>
+        </section>
+
+        <hr>
+        <div id='footer-buttons'>
+            <button type='button' id='donateButton'> 
+                <img height='15px' width='15px' src="./icons/donate.svg" /> Support this project</button>
+            <button type='button' id='writeAReviewButton'> 
+            <img height='15px' width='15px' src="./icons/review.svg" /> Write a Review</button>
+            <button type='button' id='githubButton'>
+                <img height='15px' width='15px' src="./icons/github.svg" /> View GitHub</button>
+        </div>
 
     <script src="options.js"></script>
+    </main>
 </body>
 </html>
