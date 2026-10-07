@@ -145,7 +145,7 @@ button img {
 
 @media (prefers-color-scheme: dark) {
     body {
-        background: #202124;
+        /* background: #202124; */
         color: #e8eaed;
     }
 
