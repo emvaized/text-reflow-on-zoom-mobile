@@ -118,7 +118,7 @@
             // vertically aligned without horizontal snapping
             const shouldSnapHorizontally = snapToTargetHorizontally
                 && targetElement
-                && !['IMG', 'VIDEO', 'IFRAME'].includes(targetElement.tagName);
+                && !['IMG', 'VIDEO', 'IFRAME'].includes(targetElement.tagName || targetElement.firstChild?.tagName);
 
             if (shouldSnapHorizontally) {
                 let t = targetElement;
