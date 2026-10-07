@@ -10,7 +10,7 @@ It was created to replicate text reflow feature from Opera Mobile, but in any br
 
 It is available as [Userscript](https://raw.githubusercontent.com/emvaized/text-reflow-on-zoom-mobile/refs/heads/main/src/text_reflow_on_zoom.js), and as a browser extension ([Firefox addon](https://addons.mozilla.org/firefox/addon/text-reflow-on-zoom-mobile/), but you can install it manually in any supporting browser after downloading the latest [release](https://github.com/emvaized/text-reflow-on-zoom-mobile/releases)). 
 
-⭐ Also check out my new extension [Double Tap Scroll](https://github.com/emvaized/double-tap-scroll-mobile).
+👉 Also, check out my new extension [Double Tap Scroll](https://github.com/emvaized/double-tap-scroll-mobile).
 
 #### Demo
 
