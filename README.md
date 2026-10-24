@@ -37,3 +37,9 @@ This tool doesn't collect any private data. It is fully open source, and you can
 ## Contributing
 
 If you have any ideas on how it can be improved, please let me know using a [feedback](https://greasyfork.org/en/scripts/514789-text-reflow-on-zoom-by-pinch-gesture-mobile/feedback) form on Greasyfork, or by opening a [new issue ticket](https://github.com/emvaized/text-reflow-on-zoom-mobile/issues/new) or pull request here on Github.
+
+## Some of my other projects
+* <img src="https://github.com/emvaized/selecton-extension/raw/master/src/assets/icons/logo-new.png" width="20"> [SelectON](https://github.com/emvaized/selecton-extension) – smart popup with actions on text selection 
+* <img src="https://github.com/emvaized/circle-mouse-gestures/blob/master/src/assets/icons/icon-new.png?raw=true" width="20"> [Circle Mouse Gestures](https://github.com/emvaized/circle-mouse-gestures) – better mouse gestures, with visual representation of all available actions
+* <img src="https://github.com/emvaized/open-in-popup-window-extension/blob/main/src/assets/icon_new.png?raw=true" width="20"> [Open in Popup Window](https://github.com/emvaized/open-in-popup-window-extension) – quickly open any links and images in a small popup window with no browser controls
+* <img src="https://github.com/emvaized/modern_inverted_mouse_cursors/blob/main/screenshots/illustration_of_inversion.gif?raw=true" width="20"> [Modern Inverted Mouse Cursors](https://www.patreon.com/emvaized/posts/modern-inverted-168795915) – cursor pack for Windows 10/11 which inverts all colors behind cursors 
